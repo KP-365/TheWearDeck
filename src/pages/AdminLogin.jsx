@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import { API_URL } from '../utils/api';
 
 export default function AdminLogin() {
   const [username, setUsername] = useState('');
@@ -18,7 +19,7 @@ export default function AdminLogin() {
       formData.append('username', username);
       formData.append('password', password);
 
-      const response = await fetch('http://localhost:8000/admin/login', {
+      const response = await fetch(`${API_URL}/admin/login`, {
         method: 'POST',
         body: formData,
         credentials: 'include', // Include cookies for session
@@ -28,7 +29,7 @@ export default function AdminLogin() {
 
       if (data.success) {
         // Redirect to admin panel
-        window.location.href = 'http://localhost:8000/admin';
+        window.location.href = `${API_URL}/admin`;
       } else {
         setError('Invalid admin credentials');
       }
@@ -102,17 +103,11 @@ export default function AdminLogin() {
               >
                 ← User Login
               </Link>
-              <button
-                onClick={() => window.open('http://localhost:3000', '_blank')}
-                className="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-green-600 rounded-lg hover:bg-green-700 transition"
-              >
-                Back to Main App
-              </button>
             </div>
             <p className="text-xs text-gray-500">
               Or access admin panel directly: 
               <a 
-                href="http://localhost:8000/admin" 
+                href={`${API_URL}/admin`} 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="font-medium text-black hover:underline ml-1"
