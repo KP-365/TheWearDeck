@@ -55,7 +55,7 @@ export const api = {
     }
     
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout for production
+    const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout for production
     
     try {
       const response = await fetch(`${API_URL}${endpoint}`, {
@@ -99,7 +99,7 @@ export const api = {
     }
     
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout for POST
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 second timeout for POST
     
     try {
       const response = await fetch(`${API_URL}${endpoint}`, {
@@ -111,7 +111,20 @@ export const api = {
       
       clearTimeout(timeoutId);
       
-      const responseData = await response.json();
+      // Try to parse JSON response
+      let responseData;
+      try {
+        const text = await response.text();
+        responseData = text ? JSON.parse(text) : {};
+      } catch (parseError) {
+        // If JSON parsing fails, create basic error
+        if (!response.ok) {
+          const error = new Error(`API error: ${response.statusText}`);
+          error.status = response.status;
+          throw error;
+        }
+        throw new Error('Invalid response from server');
+      }
       
       // Handle special case for signup with email confirmation
       if (!response.ok && endpoint === '/auth/signup' && responseData.detail && 
@@ -130,7 +143,7 @@ export const api = {
       }
       
       if (!response.ok) {
-        const error = new Error(responseData.detail || `API error: ${response.statusText}`);
+        const error = new Error(responseData.detail || responseData.message || `API error: ${response.statusText}`);
         error.status = response.status;
         throw error;
       }
