@@ -1,11 +1,8 @@
 const getApiUrl = () => {
   // 1) Prefer explicit deployment base URL via Vite env
-  let envBase;
-  try {
-    envBase = import.meta.env?.VITE_API_BASE;
-  } catch (e) {
-    envBase = undefined;
-  }
+ // Vite replaces import.meta.env at build time
+  const envBase = import.meta.env?.VITE_API_BASE;
+  
   if (envBase && typeof envBase === 'string' && envBase.trim().length > 0) {
     return envBase.replace(/\/$/, '');
   }
