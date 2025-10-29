@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { api } from '../utils/api';
+import { api, API_URL } from '../utils/api';
 import OutfitCard from '../components/OutfitCard';
 
 export default function SuggestFit() {
@@ -22,7 +22,7 @@ export default function SuggestFit() {
       const formData = new FormData();
       formData.append('image', file);
 
-      const response = await fetch('http://localhost:8000/upload-image', {
+      const response = await fetch(`${API_URL}/upload-image`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
@@ -180,5 +180,6 @@ export default function SuggestFit() {
     </div>
   );
 }
+
 
 
