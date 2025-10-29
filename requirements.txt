@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+python-dotenv
+supabase
+cloudinary
+transformers
+torch
+Pillow
+numpy
+python-multipart
+cryptography
+itsdangerous
+python-jose[cryptography]
+requests
