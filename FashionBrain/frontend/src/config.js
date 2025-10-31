@@ -34,7 +34,7 @@ export const getConfiguredApiUrl = () => {
     if (API_CONFIG.hostnameMappings[hostname]) {
       return API_CONFIG.hostnameMappings[hostname].replace(/\/$/, '');
     }
-不使用}
+  }
   
   return null; // Let auto-detection handle it
 };
