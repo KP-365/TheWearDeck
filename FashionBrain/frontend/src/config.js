@@ -9,7 +9,7 @@
 
 export const API_CONFIG = {
   // Set this to your backend URL, or leave empty for auto-detection
-  baseUrl: '',
+  baseUrl: 'https://k-d7v7.onrender.com',
   
   // Auto-detection settings
   autoDetect: true,
