@@ -12,3 +12,4 @@ cryptography
 itsdangerous
 python-jose[cryptography]
 requests
+pydantic
